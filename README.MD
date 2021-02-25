@@ -1,99 +1,62 @@
-# Express Production Template 
-####  A template to speed up new backend setup
+### Ejercicio
 
-# Features
-- Only element routes to understand the core.
-- Logging with [Winston](https://github.com/winstonjs/winston) & [Morgan](https://github.com/expressjs/morgan).
-- Basic Security Features  with  [Helmet](https://helmetjs.github.io/).
-- Cors implementation with [Cors](https://github.com/expressjs/cors).
-- 404 Middleware.
-- Error Middleware.
-- Auth Middleware with [Jsonwebtoken](https://github.com/auth0/node-jsonwebtoken).
-- Test Units with Jest  [Jest](https://github.com/facebook/jest).
--  Validation with [Joi](https://github.com/sideway/joi).
-- Route Controller Service Structure
-- Done in Typescript
-- ESLint and Prettier for style
-- Basic Docs with Swagger [Swagger](https://github.com/swagger-api).
+Bases del ejercicio
+El objetivo es desarrollar una API para consumir un servicio externo y utilizar su
+información. Para realizar este desarrollo se tiene que utilizar NodeJS y el código
+debe estar alojado en un repositorio en Github o Gitlab.
+Se espera que el README.md contenga una breve explicación de como correr el
+proyecto.
 
-## Installation
+### Criteria
 
-clone the repository and then:
+- [ ] Se debe poder crear usuarios, con los siguientes parámetros:
+      Nombre
+      Apellido
+      Username (único)
+      Contraseña (al menos 8 caracteres, alfanumérica)
+      Moneda preferida (puede ser Euro, Dólar o Peso Argentino)
+- [ ] Se debe implementar autenticación mediante JWT:
+  - [ ] El token se debe obtener mediante un endpoint de login (pasando un usuario y contraseña).
+  - [ ] El token debe tener un tiempo de expiración.
+  - [ ] Este token debe generarse desde la aplicación sin utilizar servicios externos <br /> (puede utilizarse packages que faciliten la creación del mismo pero no servicios como Auth0).
+- [ ] Se debe poder listar todas las criptomonedas disponibles
+  - [ ] Los datos a incluir por cada criptomoneda deben ser:
+		Simbolo.
+		Precio (en la moneda preferida del usuario).
+		Nombre.
+		Imagen.
+		Fecha última actualización.
+- [ ] Se debe permitir agregar criptomonedas al usuario para hacerle seguimiento
+  - [ ] Sólo un usuario puede agregarse criptomonedas a sí mismo.
+  - [ ] La relación usuario-criptomoneda debe ser única.
+- [ ] Se debe poder obtener el top N de criptomonedas de un usuario
+(comparando la cotización en la moneda preferida del usuario que realiza la
+consulta):
+  - [ ] Un usuario solo puede obtener su top N de criptomonedas.
+  - [ ] Debe encontrarse ordenada por cotización (ascendente/descendente, descendente por default).
+  - [ ] N puede ser menor o igual a 25.
+  - [ ] Los datos a incluir por cada criptomoneda deben ser:
+		Simbolo.
+		Precio en Pesos Argentinos.
+		Precio en Dólares.
+		Precio en Euros.
+		Nombre.
+		Imagen.
+		Fecha última actualización.
 
-    npm run install 
-    npm run dev
-    
-   
-   ## Folder Structure
-```
-.
-├──src
-├	├── controllers							# controllers files
-├	├── loaders								# core files
-├	├── middlewares							# 404, auth & error middlewares
-├	├── routes								# routes files
-├	├── services							# services files
-├	├── validators							# validators of each route
-├	config.ts								# config file used in testing
-├	index.ts								# index file
-├── __tests__                				# unit tests
-├── test_utils                  			# utils used in unit tests
-├── logs                					
-├── build                       			
-├── .env									
-├── .eslintrc.js							
-├── .gitignore							
-├── swaggerOptions.json						# swagger configuration
-├── tsconfig.json
-├── jest.config.js							# testing configuration
-├── types.d.ts								# custom types
-└── package.json
-```
+### To Do:
 
-## Install
+- [ ] Design DB Models, Relations & Endpoints   
+- [ ] Set Up Docker files
+- [ ] Make files structure & Mock Responses 
+- [ ] Use & Test Endpoints Mocks to assure requeriments 
+- [ ] next Tasks
 
-create a .env file in ROOT with following info
+### In Progress:
 
-    PORT=8081
-    USER_NAME=username
-    USER_PASS=password
-    TOKEN_SECRET=YOURTOKENSECRET__BASICALLYALONGSTRING
-    API_URL=https://mercadopagobackend.herokuapp.com/
-    TEST_ACCESS_TOKEN=validaccesstokenforlogintestunit
+- [ ] Design DB Models, Relations & Endpoints 25/02 14:04
+- [ ] Set Up Docker files
 
-then run the following commands
+### Done ✓:
 
-    npm run install
-
-## Start
-
-     npm run dev
-
-## Build
-
-     npm run build
-     npm run start
-
-## Test
-
-     npm run test
-
-## Docs
-
-you will find all routes information in localhost:8081/docs
-
-|Route|Description|
-|-- |--|
-|  /| Welcome Route, return "Hello World" message |
-|  /login| Login route, must provide username & password in request|
-|  /admin| Only Admin user can access this route, return message "Hello Admin"  |
-
-
-## Improvements
-
-- new endpoint Controller, Service, Route & Test files creation with npm command
-- Encryption
-
-## Found a bug? Missing a specific feature?
-
-Feel free to  **file a new issue**  with a respective title and description on the the  [lponciolo/express-production-template](https://github.com/lponciolo/express-production-template)
+- [x] 
