@@ -6,7 +6,7 @@ module.exports = {
   extends: ['google'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
 
@@ -24,4 +24,4 @@ module.exports = {
     ...require('eslint-config-prettier').rules,
     ...require('eslint-config-prettier/@typescript-eslint').rules,
   },
-}
+};
