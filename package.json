@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc && set NODE_ENV=development && nodemon build/src/index.js ",
-    "start": "tsc && nodemon build/src/index.js ",
+    "dev": "nodemon ",
+    "dev:debug": "nodemon --inspect-brk src/index.ts",
+    "start": "tsc && set NODE_ENV=production && node build/src/index.js ",
     "build": "tsc --project ./",
     "postbuild": " copyfiles .env build/",
     "tsc": "tsc",
@@ -19,6 +20,7 @@
   "type": "commonjs",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

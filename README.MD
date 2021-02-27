@@ -46,8 +46,9 @@ consulta):
 
 ### To Do:
 
-- [ ] Design DB Models, Relations & Endpoints   
-- [ ] Set Up Docker files
+- [x] Design DB Models, Relations & Endpoints   
+- [x] Set Up Docker files
+- [x] Build Api sketch in OpenApi 
 - [ ] Make files structure & Mock Responses 
 - [ ] Use & Test Endpoints Mocks to assure requeriments 
 - [ ] next Tasks
