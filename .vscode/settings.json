@@ -8,7 +8,9 @@
   },
   "typescript.tsdk": "./node_modules/typescript/lib", // we want to use the TS server from our node_modules folder to control its version
   // Set the default
-  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "files.eol": "\n"
   // Enable per-language
 }
