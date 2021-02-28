@@ -1,18 +1,12 @@
+import './loadEnv'
 import { Application } from 'express'
 import expressLoader from './express'
 import Logger from './logger'
-import * as dotenv from 'dotenv'
-import path from 'path'
 import mongooseInit from './mongoose'
+import './passport'
 export default async (expressApp: Application) => {
   Logger.info('inicializando')
-  const result = dotenv.config({ path: path.join(__dirname, '../../.env') })
-  if (result.error) {
-    Logger.error('error loading dot-env')
-    throw result.error
-  } else {
-    Logger.info('dot-env loaded')
-  }
+  Logger.info('dot-env loaded')
   Logger.info('connectiong mongoDB')
   try {
     mongooseInit()

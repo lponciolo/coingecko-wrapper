@@ -9,6 +9,8 @@ import { stream } from './logger'
 import errorMiddleware from '../middlewares/error'
 
 import docsRoute from './docs'
+import '../db/models/User'
+import passport from 'passport'
 
 export default async ({ app }: { app: express.Application }) => {
   const options: cors.CorsOptions = {
@@ -30,8 +32,11 @@ export default async ({ app }: { app: express.Application }) => {
   app.use(morgan('combined', { stream }))
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
+  app.use(passport.initialize())
+  app.use(passport.session())
   // ...add more middlewares here
   app.use('/', routes)
+
   app.use('/docs', docsRoute)
   app.use('/*', MiddleWare404)
 

@@ -1,22 +1,32 @@
-import jwt from 'jsonwebtoken'
-import createError from 'http-errors'
+/* eslint-disable require-jsdoc */
+import jwt from 'express-jwt'
+import { Request } from 'express'
 
-const authenticateJWT = (req: any, res: any, next: any) => {
-  const accessTokenSecret = process.env.TOKEN_SECRET as string
-  const authHeader = req.headers.authorization
-
-  if (authHeader) {
-    const token = authHeader.split(' ')[1]
-    jwt.verify(token, accessTokenSecret, (err: any, user: any) => {
-      if (err) {
-        return next(createError(403))
-      }
-      req.user = user
-      return next()
-    })
-  } else {
-    return next(createError(401))
+const getTokenFromHeader = (req: Request) => {
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.split(' ')[0] === 'Bearer'
+  ) {
+    return req.headers.authorization.split(' ')[1]
+  } else if (req.query && req.query.token) {
+    return req.query.token
   }
+  return null
 }
 
-export default authenticateJWT
+const auth = {
+  required: jwt({
+    secret: 'SECRET213' as string,
+    algorithms: ['HS256'],
+    userProperty: 'payload',
+    getToken: getTokenFromHeader,
+  }),
+  optional: jwt({
+    secret: 'SECRET213' as string,
+    algorithms: ['HS256'],
+    userProperty: 'payload',
+    credentialsRequired: false,
+    getToken: getTokenFromHeader,
+  }),
+}
+export default auth

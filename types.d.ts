@@ -1,5 +1,10 @@
 declare namespace Express {
-    export interface Request {
-        user: { username: string, role: string, iat: Number }
+  export interface Request {
+    user: {
+      username?: string
+      role?: string
+      iat?: Number
+      accessToken?: string
     }
   }
+}
