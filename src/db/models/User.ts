@@ -76,8 +76,9 @@ UserSchema.methods.generateJWT = function () {
   const secret = process.env.TOKEN_SECRET
   const today = new Date()
   const exp = new Date(today)
-  const paseExp = exp.getTime() / 1000
-  exp.setDate(today.getDate() + 60)
+  const paseExp =
+    exp.getTime() / 1000 +
+    parseInt(process.env.TOKEN_EXPIRATION_TIME_SECONDS as string)
 
   return jwt.sign(
     {
