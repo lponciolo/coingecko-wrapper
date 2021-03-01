@@ -15,6 +15,7 @@ export interface iUser extends Document {
   validPassword?: Function
   methods?: any
   accessToken?: string
+  refreshToken?: string
 }
 
 interface AuthJson {
@@ -79,7 +80,6 @@ UserSchema.methods.generateJWT = function () {
   const paseExp =
     exp.getTime() / 1000 +
     parseInt(process.env.TOKEN_EXPIRATION_TIME_SECONDS as string)
-
   return jwt.sign(
     {
       id: this._id,

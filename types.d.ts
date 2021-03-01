@@ -5,6 +5,7 @@ declare namespace Express {
       role?: string
       iat?: Number
       accessToken?: string
+      refreshToken?: string
     }
   }
 }

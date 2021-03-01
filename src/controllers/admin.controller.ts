@@ -9,9 +9,7 @@ const getAdminController = async function (
   next: NextFunction
 ) {
   try {
-    console.log(req.user)
     const serviceMessage = await getAdminWelcome()
-
     return res.status(200).json({ status: 200, message: serviceMessage })
   } catch (e) {
     return next(createError(500, e.message))

@@ -1,6 +1,7 @@
 import passport from 'passport'
 import passportLocal from 'passport-local'
 import { User } from '../db/models/User'
+import { RefreshToken } from '../db/models/RefreshToken'
 const localStrategy = passportLocal.Strategy
 
 passport.use(
@@ -45,10 +46,23 @@ passport.use(
       console.log(password)
       console.log('holis denuevo')
       try {
+        const today = new Date()
+        const exp = new Date(today)
+        const refreshTokenExpTime = new Date().setDate(exp.getDate() + 7)
         const auxUser = new User({ username: username })
         auxUser.setPassword(password)
-        console.log()
         const user = await User.create(auxUser)
+        const refreshToken = user.generateJWT()
+        const refreshTokenObject = {
+          refreshToken: refreshToken,
+          username: username,
+          userid: user._id,
+          created: exp,
+          expires: refreshTokenExpTime,
+          revoked: false,
+        }
+        await RefreshToken.create(refreshTokenObject)
+        user.refreshToken = refreshToken
         return done(null, user)
       } catch (error) {
         return done(error, null)
