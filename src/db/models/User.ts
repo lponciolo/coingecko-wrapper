@@ -52,7 +52,6 @@ const UserSchema: Schema<iUser> = new Schema(
     preferredCurrency: String,
     hash: String,
     salt: String,
-    accessToken: String,
   },
   { timestamps: true }
 )

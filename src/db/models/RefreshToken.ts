@@ -1,6 +1,5 @@
 /* eslint-disable no-invalid-this */
 import mongoose, { Schema, Document } from 'mongoose'
-
 interface iRefreshToken extends Document {
   refreshToken: String
   userid: any
