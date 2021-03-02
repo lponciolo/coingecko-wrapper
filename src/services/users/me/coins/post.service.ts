@@ -27,11 +27,11 @@ export default async (body: any, authUser: any) => {
   })
   const user = await User.findById(authUser.id)
   let newCoin: CoinDocument
-  if (oldCoin) {
-    console.log(true)
-  } else {
-    console.log(false)
-  }
+
+  const userCoinsArray: Array<string> = (user?.coins as unknown) as Array<string>
+  if (userCoinsArray.length > 24)
+    throw new Error('you must delete 1 coin first')
+
   if (oldCoin) {
     oldCoin.overwrite(coinObj)
     oldCoin.save()
