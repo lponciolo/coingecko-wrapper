@@ -18,13 +18,11 @@ const auth = {
   required: jwt({
     secret: process.env.TOKEN_SECRET as string,
     algorithms: ['HS256'],
-    userProperty: 'payload',
     getToken: getTokenFromHeader,
   }),
   optional: jwt({
     secret: process.env.TOKEN_SECRET as string,
     algorithms: ['HS256'],
-    userProperty: 'payload',
     credentialsRequired: false,
     getToken: getTokenFromHeader,
   }),

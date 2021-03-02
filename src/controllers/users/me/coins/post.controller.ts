@@ -8,8 +8,10 @@ const postCoinController = async function (
   next: NextFunction
 ) {
   try {
-    const serviceMessage = await postCoinService()
-    return res.status(200).json({ status: 200, message: serviceMessage })
+    const serviceMessage = await postCoinService(req.body, req.user)
+    return res
+      .status(200)
+      .json({ status: 200, message: 'added new coin', coin: serviceMessage })
   } catch (e) {
     return next(createError(500, e.message))
   }

@@ -45,7 +45,6 @@ passport.use(
         user.accessToken = accessToken
         const newRefreshTokenDoc = await createNewRefreshToken(user._id)
         user.refreshToken = newRefreshTokenDoc!.refreshToken as string
-
         return done(null, user)
       } catch (error) {
         console.log(error)

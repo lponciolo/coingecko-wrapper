@@ -1,21 +1,21 @@
 /* eslint-disable no-invalid-this */
-import mongoose, { Document, Schema, Model } from 'mongoose'
+import mongoose, { Document, Schema } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 
 export interface iUser extends Document {
   username?: string
-  email?: string
-  firstName?: string
-  lastName?: string
-  preferredCurrency?: string
+  firstName: string
+  lastName: string
+  preferredCurrency: string
   hash?: string
   salt?: string
   validPassword?: Function
   methods?: any
   accessToken?: string
   refreshToken?: string
+  coins?: any
 }
 
 interface AuthJson {
@@ -29,13 +29,9 @@ export interface UserDocument extends iUser, Document {
   validPassword(password: string): boolean
   generateJWT(): string
   toAuthJSON(): AuthJson
+  coins: { push(coinId: Schema.Types.ObjectId): any }
 }
-export interface UserModel extends Model<UserDocument> {
-  setPassword(password: string): void
-  validPassword?(password: string): boolean
-  generateJWT?(): string
-  toAuthJSON?(): AuthJson
-}
+
 const UserSchema: Schema<iUser> = new Schema(
   {
     username: {
@@ -46,7 +42,9 @@ const UserSchema: Schema<iUser> = new Schema(
       match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
       index: true,
     },
-    email: String,
+    coins: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Coin' }],
+    },
     firstName: String,
     lastName: String,
     preferredCurrency: String,
@@ -83,6 +81,7 @@ UserSchema.methods.generateJWT = function () {
     {
       id: this._id,
       username: this.username,
+      preferredCurrency: this.preferredCurrency,
       exp: paseExp,
     },
     secret as string
