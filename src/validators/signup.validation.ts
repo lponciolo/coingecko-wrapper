@@ -5,7 +5,7 @@ import validateRequest from './index'
 const Schema = Joi.object({
   username: Joi.string().alphanum().min(8).required().empty(),
   password: Joi.string().alphanum().min(8).required().empty(),
-  lastname: Joi.string().required().empty(),
+  lastName: Joi.string().required().empty(),
   firstName: Joi.string().required().empty(),
   preferredCurrency: Joi.string()
     .valid('ars', 'usd', 'eur')
