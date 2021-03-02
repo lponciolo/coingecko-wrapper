@@ -1,12 +1,12 @@
-import * as express from 'express'
-const router = express.Router()
-import bodyParser from 'body-parser'
-import { loginValidationSchema } from '../validators/login.validation'
-// import controllers
+import { Router } from 'express'
+import passport from 'passport'
+import loginController from '../controllers/login.controller'
 
-import { postLoginController } from '../controllers/login.controller'
-//
-router.use(bodyParser.urlencoded({ extended: false }))
-router.post('/', loginValidationSchema, postLoginController)
+const router = Router()
 
+router.post(
+  '/',
+  passport.authenticate('login', { session: false }),
+  loginController
+)
 export default router

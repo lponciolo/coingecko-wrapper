@@ -46,16 +46,20 @@ proyecto.
 
 ### To Do:
 
-- [ ] Make files structure & Mock Responses
+- [ ] Make Coins Model 
+- [ ] Make Coins Services 
 - [ ] Use & Test Endpoints Mocks to assure requeriments
-- [ ] next Tasks
 
 ### In Progress:
 
-- [ ] Coins Endpoint Mocks
+- [ ] Order files & folders for users services & controllers
 
 ### Done ✓:
-- [x] Se debe poder listar todas las criptomonedas disponibles
-- [x] Design DB Models, Relations & Endpoints
-- [x] Set Up Docker files
+
 - [x] Build Api sketch in OpenApi
+- [x] Make files structure & Mock Responses
+- [x] Design DB Models, Relations & Endpoints
+- [x] Use & Test Endpoints Mocks to assure requeriments
+- [x] Set Up Docker files
+- [x] Express core Set Up
+- [x] Implement AccesToken & refresh tokens authentication

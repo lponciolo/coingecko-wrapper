@@ -1,7 +1,19 @@
 import mongoose from 'mongoose'
 import Logger from './logger'
 export default async () => {
-  await mongoose.connect('mongodb://localhost:27017/gecko-wrapper', {
+  const {
+    MONGO_USERNAME,
+    MONGO_PASSWORD,
+    MONGO_PORT,
+    MONGO_DB,
+    MONGO_HOSTNAME,
+  } = process.env
+
+  const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`
+  const urlDev = 'mongodb://localhost:27017/gecko-wrapper'
+  const finalUrl = process.env.NODE_ENV === 'production' ? url : urlDev
+  console.log(finalUrl)
+  await mongoose.connect(finalUrl, {
     useNewUrlParser: true,
   })
 

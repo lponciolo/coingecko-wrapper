@@ -12,9 +12,10 @@ services:
     environment:
       - MONGO_USERNAME=$MONGO_USERNAME
       - MONGO_PASSWORD=$MONGO_PASSWORD
-      - MONGO_HOSTNAME=db
+      - MONGO_HOSTNAME=mongodb
       - MONGO_PORT=$MONGO_PORT
       - MONGO_DB=$MONGO_DB
+      - NODE_ENV=production
     ports:
       - "8081:8081"
     volumes:
@@ -23,16 +24,18 @@ services:
       - app-network
     command: npm start
 
-  db:
-    image: mongo
-    container_name: db
+  mongodb:
+    image: mongo:4.1.8-xenial
+    ports:
+      - 27017:27017
+    container_name: mongodb
     restart: unless-stopped
     env_file: .env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
     volumes:
-      - dbdata:/data/db
+      - dbdata:/data/mongodb
     networks:
       - app-network
 

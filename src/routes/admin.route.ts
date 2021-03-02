@@ -6,6 +6,11 @@ import auth from '../middlewares/auth'
 import { getAdminController } from '../controllers/admin.controller'
 
 const router = Router()
-router.get('/', getAdminRouteValidationSchema, auth, getAdminController)
+router.get(
+  '/',
+  getAdminRouteValidationSchema,
+  auth.required,
+  getAdminController
+)
 
 export default router
