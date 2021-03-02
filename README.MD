@@ -46,9 +46,15 @@ proyecto.
 
 ### To Do:
 
+<<<<<<< HEAD
 - [ ] Build validation middlewares
 - [ ] Build integration tests
 - [ ] Build Documentation
+=======
+- [ ] Make Coins Model 
+- [ ] Make Coins Services 
+- [ ] Use & Test Endpoints Mocks to assure requeriments
+>>>>>>> db
 
 ### In Progress:
 
