@@ -32,7 +32,7 @@ export const validateHeadersAndBody = (
 ) => {
   const options = {
     abortEarly: false, // include all errors
-    allowUnknown: true, // ignore unknown props
+    allowUnknown: false, // ignore unknown props
     stripUnknown: false, // remove unknown props
   }
 

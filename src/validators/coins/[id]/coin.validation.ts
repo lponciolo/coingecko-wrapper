@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
 import Joi from 'joi'
-import validateRequest from './index'
+import validateRequest from './../../index'
 
-const Schema = Joi.object({})
+const Schema = Joi.object({
+  name: Joi.string().required().empty(),
+})
 
-const welcomeValidationSchema = (
+const loginValidationSchema = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -12,4 +14,4 @@ const welcomeValidationSchema = (
   return validateRequest(req, next, Schema)
 }
 
-export default welcomeValidationSchema
+export default loginValidationSchema

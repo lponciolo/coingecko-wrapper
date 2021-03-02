@@ -46,23 +46,17 @@ proyecto.
 
 ### To Do:
 
-<<<<<<< HEAD
 - [ ] Build validation middlewares
 - [ ] Build integration tests
-- [ ] Build Documentation
-=======
-- [ ] Make Coins Model 
-- [ ] Make Coins Services 
-- [ ] Use & Test Endpoints Mocks to assure requeriments
->>>>>>> db
+
 
 ### In Progress:
 
-- [ ] Order files & folders for users services & controllers
+- [ ] Build validation middlewares
 
 ### Done ✓:
 
-
+- [x] Build Documentation
 - [x] Build Coins endpoints
 - [x] Build Coins DB Model 
 - [x] Build User endpoints
@@ -75,3 +69,9 @@ proyecto.
 - [x] Make files structure & Mock Responses
 - [x] Design DB Models, Relations & Endpoints
 - [x] Build Api sketch in OpenApi
+
+
+### Issues :
+
+- [ ] duplicate coin for User if i add twice the same coin, fix: should update already existing User Coin in db
+- [ ] 1000ms restriction fix: workaround for gecko Wrapper in ./src/services/utils/coingeckoWrapper.ts
