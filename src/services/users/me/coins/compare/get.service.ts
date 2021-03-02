@@ -14,7 +14,6 @@ const sotDescendent = (objArray: Array<any>) => {
 }
 
 export default async (authUser: any, sortOption: boolean) => {
-  console.log(authUser)
   let coinArray: Array<any> = []
   const user = await User.findById(authUser.id).populate('coins')
   if (user) {
@@ -27,7 +26,7 @@ export default async (authUser: any, sortOption: boolean) => {
       coinArray,
       user.preferredCurrency
     )
-    console.log(geckoResultList)
+
     coinArray = []
     allUserCoins.map((coin) => {
       const coinName = coin.name.toLowerCase()
@@ -36,7 +35,7 @@ export default async (authUser: any, sortOption: boolean) => {
       const lastUpdate = new Date(
         geckoResultList[`${coinName}`][`last_updated_at`] * 1000
       )
-      console.log(actualPrice)
+
       const newObj = {
         symbol: coin.symbol,
         priceAtSave: coin.priceAtSave[user.preferredCurrency],

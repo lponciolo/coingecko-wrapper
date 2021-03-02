@@ -8,12 +8,12 @@ export default async (reqParams: any) => {
     id: geckoResult.id,
     symbol: geckoResult.symbol,
     name: geckoResult.name,
-    current_price: {
+    currentPrice: {
       ars: geckoResult.market_data.current_price.ars,
       usd: geckoResult.market_data.current_price.usd,
       eur: geckoResult.market_data.current_price.eur,
     },
-    last_updated: geckoResult.last_updated,
+    lastUpdated: geckoResult.last_updated,
     image: geckoResult.image.small,
   }
 

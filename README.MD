@@ -45,17 +45,17 @@ proyecto.
         Fecha última actualización.
 
 ### To Do:
-
-- [ ] Build validation middlewares
 - [ ] Build integration tests
-
+- [ ] fix issue3
+- [ ] fix issue1
+- [ ] fix issue2
 
 ### In Progress:
 
-- [ ] Build validation middlewares
+- [ ] Build integration tests
 
 ### Done ✓:
-
+- [x] Build validation middlewares
 - [x] Build Documentation
 - [x] Build Coins endpoints
 - [x] Build Coins DB Model 
@@ -73,5 +73,6 @@ proyecto.
 
 ### Issues :
 
-- [ ] duplicate coin for User if i add twice the same coin, fix: should update already existing User Coin in db
-- [ ] 1000ms restriction fix: workaround for gecko Wrapper in ./src/services/utils/coingeckoWrapper.ts
+- [ ] issue1: duplicate coin for User if i add twice the same coin, fix: should update already existing User Coin in db
+- [ ] issue2: 1000ms restriction fix: workaround for gecko Wrapper in ./src/services/utils/coingeckoWrapper.ts
+- [ ] issue3: users should have the option to delete 1 of their coins

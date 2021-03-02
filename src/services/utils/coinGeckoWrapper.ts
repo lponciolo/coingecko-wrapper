@@ -56,7 +56,7 @@ const CoinGeckoWrapper = {
     const response = await conGeckoInstance.get(
       `/simple/price?${query}&include_last_updated_at=true`
     )
-    console.log(response.data)
+
     return response.data
   },
 }

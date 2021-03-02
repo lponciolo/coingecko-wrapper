@@ -10,7 +10,6 @@ export default async (refreshTokenString: string, usernameString: string) => {
     refreshToken: refreshTokenString,
   })
   if (result.length > 0) {
-    console.log('mayor a 0')
     await Promise.all(
       result.map(async (singleResponse) => {
         const user = await User.findOne({ _id: singleResponse.userid })
@@ -36,10 +35,9 @@ export default async (refreshTokenString: string, usernameString: string) => {
         }
       })
     )
-    console.log(finalPayload)
+
     return finalPayload
   } else {
-    console.log('token not found')
     throw new Error('token not found')
   }
 }

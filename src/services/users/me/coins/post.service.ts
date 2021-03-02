@@ -1,9 +1,14 @@
 import { User } from '../../../../db/models/User'
 import { Coin, CoinDocument } from '../../../../db/models/Coin'
 import CoinGeckoWrapper from '../../../utils/coinGeckoWrapper'
+
+const capitalize = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+}
+
 export default async (body: any, authUser: any) => {
   const geckoresponse: any = await CoinGeckoWrapper.getCoinInfo(body.name)
-  console.log(geckoresponse)
+  const coinId = capitalize(body.name)
   const coinObj: any = {
     userid: authUser.id,
     symbol: geckoresponse.symbol,
@@ -18,23 +23,27 @@ export default async (body: any, authUser: any) => {
   }
   const oldCoin = await Coin.findOne({
     userid: authUser.id,
-    name: body.name,
+    name: coinId,
   })
+  const user = await User.findById(authUser.id)
   let newCoin: CoinDocument
   if (oldCoin) {
-    await oldCoin.overwrite(coinObj)
+    console.log(true)
+  } else {
+    console.log(false)
+  }
+  if (oldCoin) {
+    oldCoin.overwrite(coinObj)
     oldCoin.save()
-    console.log(oldCoin)
     newCoin = oldCoin
   } else {
     newCoin = await Coin.create(coinObj)
-  }
-  const user = await User.findById(authUser.id)
-  if (user) {
-    user.coins.push(newCoin._id)
-    user.save()
-  } else {
-    throw new Error('user not found')
+    if (user) {
+      user.coins.push(newCoin._id)
+      user.save()
+    } else {
+      throw new Error('user not found')
+    }
   }
   return await newCoin
 }

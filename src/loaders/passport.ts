@@ -29,12 +29,11 @@ passport.use(
       passwordField: 'password',
     },
     async (username: string, password: string, done: Function) => {
-      console.log('entra')
       try {
         const user = await User.findOne({
           username: username,
         })
-        console.log(user)
+
         if (!user || !user.validPassword(password)) {
           return done(null, false, {
             errors: { 'email or password': 'is invalid' },
@@ -46,9 +45,7 @@ passport.use(
         const newRefreshTokenDoc = await createNewRefreshToken(user._id)
         user.refreshToken = newRefreshTokenDoc!.refreshToken as string
         return done(null, user)
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     }
   )
 )
@@ -61,9 +58,6 @@ passport.use(
       passwordField: 'password',
     },
     async (username, password, done) => {
-      console.log(username)
-      console.log(password)
-      console.log('holis denuevo')
       try {
         const today = new Date()
         const exp = new Date(today)

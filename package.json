@@ -13,7 +13,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run lint && npm run test:run",
-    "test:run": "jest"
+    "test:run": "jest --runInBand --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
