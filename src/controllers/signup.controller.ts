@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import signupService from '../../services/users/post.service'
+import signupService from '../services/signup.service'
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   signupService(req.body, req.user.username as string)

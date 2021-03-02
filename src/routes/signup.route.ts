@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import passport from 'passport'
-import signupController from '../../controllers/users/post.controller'
+import signupController from '../controllers/users/me/coins/post.controller'
 
 const router = Router()
 

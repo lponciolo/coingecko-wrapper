@@ -1,176 +1,1220 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "0.0.1",
-    "title": "Flashout Api",
-    "description": "A sample Express.js API template ",
-    "termsOfService": "http://localhost:8081/",
-    "contact": {
-      "name": "Swagger API Team"
-    },
-    "license": {
-      "name": "MIT"
-    }
-  },
-  "host": "localhost:8081",
-  "basePath": "/",
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
-  "paths": {
-    "/admin": {
-      "get": {
-        "description": "Admin path only authorized to admin user",
-        "operationId": "getWelcome",
-        "produces": ["text/html"],
-        "parameters": [
-          
-          {
-            "in": "body",
-            "description": "user username and password",
-            "name": "user",
-            "schema": {
-              "properties": {
-           
-              }
-            }
-          },{
-            "name":"authorization",
-            "in": "header",
-            "description": "access token required",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Welcome message!",
-            "schema": {
-              "type": "string",
-              "example": "Hello Admin!"
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorModel"
-            }
-          }
-        }
-      }
-    },
-    "/login": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "in": "body",
-            "description": "user username and password",
-            "name": "user",
-            "schema": {
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "example":"admin"
-                },
-                "password": {
-                  "type": "string",
-                  "example":"admin"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema":{
-              "description": "user",
-              "properties": {
-                "message":{
-                  "type":"string",
-                  "example": "successfull Login"
-                },
-                "userAuth":{
-                  "$ref": "#/definitions/userAuth"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "description": "welcome path",
-        "operationId": "getWelcome",
-        "produces": ["text/html"],
-        "parameters": [{
-          "in": "body",
-          "description": "user username and password",
-          "name": "user",
-          "schema": {
-            "properties": {
-         
-            }
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "Welcome message!",
-            "schema": {
-              "type": "string",
-              "example": "Hello World!"
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorModel"
-            }
-          }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "userAuth":{
-      "type":"object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/userAuth"
-        }
-      ],
-      "required": ["username","role","accessToken"],
-      "properties": {
-        "username":{
-          "type":"string",
-          "example":"juancitoDelToro99"
-        },
-        "role":{
-          "type":"string",
-          "example":"user"
-        },
-        "accessToken":{
-          "type":"string",
-          "example":"WF0IjoxNjEzNDg5NzMzfQ.XwSvEJDzlbUbX9eh1n2DJrJCX-tilcMuseI9EJK823YeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwia"
-        }
-      }
-    },
-    "ErrorModel": {
-      "type": "object",
-      "required": ["code", "message"],
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32",
-          "example": 500
-        },
-        "message": {
-          "type": "string",
-          "example": "oops something happend"
-        }
-      }
-    }
-  }
+	"openapi": "3.0.0",
+	"info": {
+		"title": "coins",
+		"description": "coingecko wrapper api documentation",
+		"version": "1.0",
+		"contact": "l.ponciolo@gmail.com"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/api/v1"
+		}
+	],
+	"paths": {
+		"/signup": {
+			"post": {
+				"summary": "signup new user endpoint",
+				"operationId": "post-login",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "",
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"minLength": 1
+										},
+										"user": {
+											"type": "string",
+											"minLength": 1
+										},
+										"refreshToken": {
+											"type": "string",
+											"minLength": 1
+										}
+									},
+									"required": [
+										"message",
+										"user",
+										"refreshToken"
+									]
+								},
+								"examples": {
+									"example-1": {
+										"value": {
+											"message": "Signup successful",
+											"user": "larrysmith",
+											"refreshToken": "9WbrB47JZz8WW24bAiT63dA5PfdT6BmyMultvHtddrzmq9nFrNLjdeCZl9BFcCIzOAX9KrFJdLHFvTUq5LHgN7HBosBXZUdVeoIPEIeDc1YIIwR8yOhj9mSzjKgfKDe8EQ58ImeIWTPKLkIlXSHa5wG77HYcaNO2Vj6dXWGZOKbQUiV2AU1aVkEEVCUO4Jxmhq6UTNJFQd5eX4GPHAVkkxlFtFQSzsdZflzrpTw186CNgyMlFGYNrtb428FoLOfx"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"description": "",
+								"type": "object",
+								"properties": {
+									"username": {
+										"type": "string",
+										"minLength": 1
+									},
+									"firstName": {
+										"type": "string",
+										"minLength": 1
+									},
+									"lastname": {
+										"type": "string",
+										"minLength": 1
+									},
+									"password": {
+										"type": "string",
+										"minLength": 1
+									},
+									"preferredCurrency": {
+										"type": "string",
+										"minLength": 1
+									}
+								},
+								"required": [
+									"username",
+									"firstName",
+									"lastname",
+									"password",
+									"preferredCurrency"
+								]
+							},
+							"examples": {
+								"example-1": {
+									"value": {
+										"username": "larrysmith",
+										"firstName": "larry",
+										"lastname": "smith",
+										"password": "batmanbestpassword",
+										"preferredCurrency": "usd"
+									}
+								}
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"type": "object",
+								"properties": {}
+							}
+						}
+					}
+				},
+				"description": "signup new user endpoint"
+			},
+			"parameters": []
+		},
+		"/users/me/coins": {
+			"parameters": [],
+			"get": {
+				"summary": "get your coins list",
+				"tags": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "",
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number"
+										},
+										"coins": {
+											"type": "array",
+											"uniqueItems": true,
+											"minItems": 1,
+											"items": {
+												"required": [
+													"_id",
+													"userid",
+													"symbol",
+													"name",
+													"lastUpdated",
+													"image",
+													"created",
+													"createdAt",
+													"updatedAt",
+													"__v"
+												],
+												"properties": {
+													"priceAtSave": {
+														"type": "object",
+														"properties": {
+															"ars": {
+																"type": "number"
+															},
+															"usd": {
+																"type": "number"
+															},
+															"eur": {
+																"type": "number"
+															}
+														},
+														"required": [
+															"ars",
+															"usd",
+															"eur"
+														]
+													},
+													"_id": {
+														"type": "string",
+														"minLength": 1
+													},
+													"userid": {
+														"type": "string",
+														"minLength": 1
+													},
+													"symbol": {
+														"type": "string",
+														"minLength": 1
+													},
+													"name": {
+														"type": "string",
+														"minLength": 1
+													},
+													"lastUpdated": {
+														"type": "string",
+														"minLength": 1
+													},
+													"image": {
+														"type": "string",
+														"minLength": 1
+													},
+													"created": {
+														"type": "string",
+														"minLength": 1
+													},
+													"createdAt": {
+														"type": "string",
+														"minLength": 1
+													},
+													"updatedAt": {
+														"type": "string",
+														"minLength": 1
+													},
+													"__v": {
+														"type": "number"
+													}
+												}
+											}
+										}
+									},
+									"required": [
+										"status",
+										"coins"
+									]
+								},
+								"examples": {
+									"example-1": {
+										"value": {
+											"status": 200,
+											"coins": [
+												{
+													"priceAtSave": {
+														"ars": 4402761,
+														"usd": 48912,
+														"eur": 40655
+													},
+													"_id": "603e36d12f42020e34c6aa1b",
+													"userid": "603e334e2f42020e34c6aa19",
+													"symbol": "btc",
+													"name": "Bitcoin",
+													"lastUpdated": "2021-03-02T12:54:43.809Z",
+													"image": "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+													"created": "2021-03-02T13:00:01.889Z",
+													"createdAt": "2021-03-02T13:00:01.891Z",
+													"updatedAt": "2021-03-02T13:00:01.891Z",
+													"__v": 0
+												},
+												{
+													"priceAtSave": {
+														"ars": 4.59,
+														"usd": 0.050974,
+														"eur": 0.04236097
+													},
+													"_id": "603e37892f42020e34c6aa1c",
+													"userid": "603e334e2f42020e34c6aa19",
+													"symbol": "doge",
+													"name": "Dogecoin",
+													"lastUpdated": "2021-03-02T13:02:22.197Z",
+													"image": "https://assets.coingecko.com/coins/images/5/small/dogecoin.png?1547792256",
+													"created": "2021-03-02T13:03:05.777Z",
+													"createdAt": "2021-03-02T13:03:05.779Z",
+													"updatedAt": "2021-03-02T13:03:05.779Z",
+													"__v": 0
+												},
+												{
+													"priceAtSave": {
+														"ars": 16330.45,
+														"usd": 181.42,
+														"eur": 150.74
+													},
+													"_id": "603e379a2f42020e34c6aa1d",
+													"userid": "603e334e2f42020e34c6aa19",
+													"symbol": "ltc",
+													"name": "Litecoin",
+													"lastUpdated": "2021-03-02T13:00:56.760Z",
+													"image": "https://assets.coingecko.com/coins/images/2/small/litecoin.png?1547033580",
+													"created": "2021-03-02T13:03:22.959Z",
+													"createdAt": "2021-03-02T13:03:22.960Z",
+													"updatedAt": "2021-03-02T13:03:22.960Z",
+													"__v": 0
+												}
+											]
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"operationId": "get-users-me-coins",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {}
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"type": "object",
+								"properties": {}
+							}
+						}
+					},
+					"description": "List"
+				},
+				"description": "List user coins"
+			},
+			"post": {
+				"summary": "add a new coin",
+				"operationId": "post-user-me-coins",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "",
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number"
+										},
+										"message": {
+											"type": "string",
+											"minLength": 1
+										},
+										"coin": {
+											"type": "object",
+											"properties": {
+												"_id": {
+													"type": "string",
+													"minLength": 1
+												},
+												"userid": {
+													"type": "string",
+													"minLength": 1
+												},
+												"symbol": {
+													"type": "string",
+													"minLength": 1
+												},
+												"name": {
+													"type": "string",
+													"minLength": 1
+												},
+												"priceAtSave": {
+													"type": "object",
+													"properties": {
+														"ars": {
+															"type": "number"
+														},
+														"usd": {
+															"type": "number"
+														},
+														"eur": {
+															"type": "number"
+														}
+													},
+													"required": [
+														"ars",
+														"usd",
+														"eur"
+													]
+												},
+												"lastUpdated": {
+													"type": "string",
+													"minLength": 1
+												},
+												"image": {
+													"type": "string",
+													"minLength": 1
+												},
+												"created": {
+													"type": "string",
+													"minLength": 1
+												},
+												"createdAt": {
+													"type": "string",
+													"minLength": 1
+												},
+												"updatedAt": {
+													"type": "string",
+													"minLength": 1
+												},
+												"__v": {
+													"type": "number"
+												}
+											},
+											"required": [
+												"_id",
+												"userid",
+												"symbol",
+												"name",
+												"priceAtSave",
+												"lastUpdated",
+												"image",
+												"created",
+												"createdAt",
+												"updatedAt",
+												"__v"
+											]
+										}
+									},
+									"required": [
+										"status",
+										"message",
+										"coin"
+									]
+								},
+								"examples": {
+									"example-1": {
+										"value": {
+											"status": 200,
+											"message": "added new coin",
+											"coin": {
+												"_id": "603e36d12f42020e34c6aa1b",
+												"userid": "603e334e2f42020e34c6aa19",
+												"symbol": "btc",
+												"name": "Bitcoin",
+												"priceAtSave": {
+													"ars": 4402761,
+													"usd": 48912,
+													"eur": 40655
+												},
+												"lastUpdated": "2021-03-02T12:54:43.809Z",
+												"image": "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+												"created": "2021-03-02T13:00:01.889Z",
+												"createdAt": "2021-03-02T13:00:01.891Z",
+												"updatedAt": "2021-03-02T13:00:01.891Z",
+												"__v": 0
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"description": "",
+								"type": "object"
+							},
+							"examples": {
+								"example-1": {
+									"value": {
+										"status": 200,
+										"message": "added new coin",
+										"coin": {
+											"_id": "603e36d12f42020e34c6aa1b",
+											"userid": "603e334e2f42020e34c6aa19",
+											"symbol": "btc",
+											"name": "Bitcoin",
+											"priceAtSave": {
+												"ars": 4402761,
+												"usd": 48912,
+												"eur": 40655
+											},
+											"lastUpdated": "2021-03-02T12:54:43.809Z",
+											"image": "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+											"created": "2021-03-02T13:00:01.889Z",
+											"createdAt": "2021-03-02T13:00:01.891Z",
+											"updatedAt": "2021-03-02T13:00:01.891Z",
+											"__v": 0
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"schema": {
+							"type": "string"
+						},
+						"in": "header",
+						"name": "Authorization",
+						"description": "Barer Token",
+						"required": true
+					}
+				]
+			},
+			"delete": {
+				"summary": "remove a coin",
+				"operationId": "delete-users-me-coins",
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/coins": {
+			"get": {
+				"summary": "Your GET endpoint",
+				"tags": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"description": "",
+									"minItems": 1,
+									"uniqueItems": true,
+									"items": {
+										"type": "object",
+										"required": [
+											"id",
+											"symbol",
+											"currentPrice",
+											"name",
+											"image",
+											"lastUpdated"
+										],
+										"properties": {
+											"id": {
+												"type": "string",
+												"minLength": 1
+											},
+											"symbol": {
+												"type": "string",
+												"minLength": 1
+											},
+											"currentPrice": {
+												"type": "number"
+											},
+											"name": {
+												"type": "string",
+												"minLength": 1
+											},
+											"image": {
+												"type": "string",
+												"minLength": 1
+											},
+											"lastUpdated": {
+												"type": "string",
+												"minLength": 1
+											}
+										}
+									}
+								},
+								"examples": {
+									"example-1": {
+										"value": [
+											{
+												"id": "bitcoin",
+												"symbol": "btc",
+												"currentPrice": 4397722,
+												"name": "Bitcoin",
+												"image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+												"lastUpdated": "2021-03-02T12:17:25.977Z"
+											},
+											{
+												"id": "ethereum",
+												"symbol": "eth",
+												"currentPrice": 141263,
+												"name": "Ethereum",
+												"image": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+												"lastUpdated": "2021-03-02T12:15:30.197Z"
+											},
+											{
+												"id": "cardano",
+												"symbol": "ada",
+												"currentPrice": 110.85,
+												"name": "Cardano",
+												"image": "https://assets.coingecko.com/coins/images/975/large/cardano.png?1547034860",
+												"lastUpdated": "2021-03-02T12:15:28.128Z"
+											},
+											{
+												"id": "binancecoin",
+												"symbol": "bnb",
+												"currentPrice": 22525,
+												"name": "Binance Coin",
+												"image": "https://assets.coingecko.com/coins/images/825/large/binance-coin-logo.png?1547034615",
+												"lastUpdated": "2021-03-02T12:14:55.664Z"
+											},
+											{
+												"id": "tether",
+												"symbol": "usdt",
+												"currentPrice": 90.15,
+												"name": "Tether",
+												"image": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707",
+												"lastUpdated": "2021-03-02T12:11:53.737Z"
+											},
+											{
+												"id": "polkadot",
+												"symbol": "dot",
+												"currentPrice": 3274.48,
+												"name": "Polkadot",
+												"image": "https://assets.coingecko.com/coins/images/12171/large/aJGBjJFU_400x400.jpg?1597804776",
+												"lastUpdated": "2021-03-02T12:17:12.420Z"
+											},
+											{
+												"id": "ripple",
+												"symbol": "xrp",
+												"currentPrice": 39.8,
+												"name": "XRP",
+												"image": "https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1605778731",
+												"lastUpdated": "2021-03-02T12:14:45.960Z"
+											},
+											{
+												"id": "chainlink",
+												"symbol": "link",
+												"currentPrice": 2659.67,
+												"name": "Chainlink",
+												"image": "https://assets.coingecko.com/coins/images/877/large/chainlink-new-logo.png?1547034700",
+												"lastUpdated": "2021-03-02T12:14:15.767Z"
+											},
+											{
+												"id": "litecoin",
+												"symbol": "ltc",
+												"currentPrice": 16322.4,
+												"name": "Litecoin",
+												"image": "https://assets.coingecko.com/coins/images/2/large/litecoin.png?1547033580",
+												"lastUpdated": "2021-03-02T12:16:49.372Z"
+											},
+											{
+												"id": "bitcoin-cash",
+												"symbol": "bch",
+												"currentPrice": 48492,
+												"name": "Bitcoin Cash",
+												"image": "https://assets.coingecko.com/coins/images/780/large/bitcoin-cash-circle.png?1594689492",
+												"lastUpdated": "2021-03-02T12:17:33.968Z"
+											},
+											{
+												"id": "stellar",
+												"symbol": "xlm",
+												"currentPrice": 38.11,
+												"name": "Stellar",
+												"image": "https://assets.coingecko.com/coins/images/100/large/Stellar_symbol_black_RGB.png?1552356157",
+												"lastUpdated": "2021-03-02T12:15:07.067Z"
+											}
+										]
+									}
+								}
+							}
+						}
+					}
+				},
+				"operationId": "get-coins",
+				"description": "List all available Coins",
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"description": "",
+								"type": "object",
+								"properties": {
+									"vsCurrency": {
+										"type": "string",
+										"minLength": 1
+									},
+									"perPage": {
+										"type": "string",
+										"minLength": 1
+									},
+									"page": {
+										"type": "string",
+										"minLength": 1
+									}
+								},
+								"required": [
+									"vsCurrency",
+									"perPage",
+									"page"
+								]
+							},
+							"examples": {
+								"/coin request body": {
+									"value": {
+										"vsCurrency": "ars",
+										"perPage": "100",
+										"page": "1"
+									}
+								}
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"type": "object",
+								"properties": {}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/coins/{coinid}": {
+			"parameters": [
+				{
+					"schema": {
+						"type": "string"
+					},
+					"name": "coinid",
+					"in": "path",
+					"required": true
+				}
+			],
+			"get": {
+				"summary": "get Coin information from Gecko",
+				"tags": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "",
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"minLength": 1
+										},
+										"symbol": {
+											"type": "string",
+											"minLength": 1
+										},
+										"name": {
+											"type": "string",
+											"minLength": 1
+										},
+										"current_price": {
+											"type": "object",
+											"properties": {
+												"ars": {
+													"type": "number"
+												},
+												"usd": {
+													"type": "number"
+												},
+												"eur": {
+													"type": "number"
+												}
+											},
+											"required": [
+												"ars",
+												"usd",
+												"eur"
+											]
+										},
+										"last_updated": {
+											"type": "string",
+											"minLength": 1
+										},
+										"image": {
+											"type": "string",
+											"minLength": 1
+										}
+									},
+									"required": [
+										"id",
+										"symbol",
+										"name",
+										"current_price",
+										"last_updated",
+										"image"
+									]
+								},
+								"examples": {
+									"example-1": {
+										"value": {
+											"id": "dogecoin",
+											"symbol": "doge",
+											"name": "Dogecoin",
+											"current_price": {
+												"ars": 4.6,
+												"usd": 0.05106,
+												"eur": 0.04245424
+											},
+											"last_updated": "2021-03-02T12:37:58.820Z",
+											"image": "https://assets.coingecko.com/coins/images/5/small/dogecoin.png?1547792256"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"operationId": "get-coins-coinid",
+				"parameters": [
+					{
+						"schema": {
+							"type": "string",
+							"minimum": 1
+						},
+						"required": true,
+						"in": "path",
+						"name": "coinid",
+						"description": "coin id"
+					}
+				],
+				"description": "get Coin information from Gecko",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"description": "",
+								"type": "object"
+							},
+							"examples": {}
+						}
+					}
+				}
+			}
+		},
+		"/login": {
+			"post": {
+				"summary": "login user endpoint",
+				"operationId": "login",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "",
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"minLength": 1
+										},
+										"username": {
+											"type": "string",
+											"minLength": 1
+										},
+										"accessToken": {
+											"type": "string",
+											"minLength": 1
+										},
+										"refreshToken": {
+											"type": "string",
+											"minLength": 1
+										}
+									},
+									"required": [
+										"message",
+										"username",
+										"accessToken",
+										"refreshToken"
+									]
+								},
+								"examples": {
+									"example-1": {
+										"value": {
+											"message": "login successful",
+											"username": "larrysmith",
+											"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwM2UzMzRlMmY0MjAyMGUzNGM2YWExOSIsInVzZXJuYW1lIjoibGFycnlzbWl0aCIsInByZWZlcnJlZEN1cnJlbmN5IjoidXNkIiwiZXhwIjoxNjE0Njk1ODQ5LjUxOSwiaWF0IjoxNjE0Njg5ODQ5fQ.abHZz-uXrQyGCCHh8W5d5BFbkwzysp4-w8kAdQfAKJo",
+											"refreshToken": "jyxI8qkQCWhokpz0tn0KvVPa6Kjr5urK0PJwmlUSu6x5FLP3RROsacQI0dE7TL0x7wntZqAddoZvx14zU64HTtT9HgCUY17eck76yHwu2FW5luL7xoIfKhiKjjqLfY4UC4TPRfyTnJnirH0mYYlmwrzCkzPFpaKrIzTdTErGmkobpMXi2ucFhTOff2YA1QPQF7o1nvWY3qiBIZOIgpCpX1PAIuL9GcTUf3gglMHdHpyM1pkpdB0dvvz1IuBQJmxC"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"description": "",
+								"type": "object",
+								"properties": {
+									"username": {
+										"type": "string",
+										"minLength": 1
+									},
+									"password": {
+										"type": "string",
+										"minLength": 1
+									}
+								},
+								"required": [
+									"username",
+									"password"
+								]
+							},
+							"examples": {
+								"example-1": {
+									"value": {
+										"username": "larrysmith",
+										"password": "batmanbestpassword"
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "login user endpoint"
+			}
+		},
+		"/users/me/coins/compare": {
+			"get": {
+				"summary": "get coins comparsion at user preferred currency",
+				"tags": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "",
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number"
+										},
+										"coins": {
+											"type": "array",
+											"uniqueItems": true,
+											"minItems": 1,
+											"items": {
+												"required": [
+													"symbol",
+													"priceAtSave",
+													"name",
+													"image",
+													"created",
+													"lastUpdated",
+													"actualPrice",
+													"preferredCurrency"
+												],
+												"properties": {
+													"symbol": {
+														"type": "string",
+														"minLength": 1
+													},
+													"priceAtSave": {
+														"type": "number"
+													},
+													"name": {
+														"type": "string",
+														"minLength": 1
+													},
+													"image": {
+														"type": "string",
+														"minLength": 1
+													},
+													"created": {
+														"type": "string",
+														"minLength": 1
+													},
+													"lastUpdated": {
+														"type": "string",
+														"minLength": 1
+													},
+													"actualPrice": {
+														"type": "number"
+													},
+													"preferredCurrency": {
+														"type": "string",
+														"minLength": 1
+													}
+												}
+											}
+										}
+									},
+									"required": [
+										"status",
+										"coins"
+									]
+								},
+								"examples": {
+									"example-1": {
+										"value": {
+											"status": 200,
+											"coins": [
+												{
+													"symbol": "doge",
+													"priceAtSave": 0.050974,
+													"name": "dogecoin",
+													"image": "https://assets.coingecko.com/coins/images/5/small/dogecoin.png?1547792256",
+													"created": "2021-03-02T13:03:05.777Z",
+													"lastUpdated": "2021-03-02T13:09:07.000Z",
+													"actualPrice": 0.051145,
+													"preferredCurrency": "usd"
+												},
+												{
+													"symbol": "ltc",
+													"priceAtSave": 181.42,
+													"name": "litecoin",
+													"image": "https://assets.coingecko.com/coins/images/2/small/litecoin.png?1547033580",
+													"created": "2021-03-02T13:03:22.959Z",
+													"lastUpdated": "2021-03-02T13:07:55.000Z",
+													"actualPrice": 183.27,
+													"preferredCurrency": "usd"
+												},
+												{
+													"symbol": "btc",
+													"priceAtSave": 48912,
+													"name": "bitcoin",
+													"image": "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+													"created": "2021-03-02T13:00:01.889Z",
+													"lastUpdated": "2021-03-02T13:07:36.000Z",
+													"actualPrice": 49042,
+													"preferredCurrency": "usd"
+												}
+											]
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"operationId": "get-users-me-coins-compare",
+				"description": "get coins comparsion at user preferred currency",
+				"parameters": [
+					{
+						"schema": {
+							"type": "string"
+						},
+						"in": "header",
+						"name": "Authorization",
+						"description": "Barer Token"
+					}
+				]
+			}
+		},
+		"/token": {
+			"post": {
+				"summary": "get a new accestoken with your refreshtoken & username",
+				"operationId": "post-token",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "",
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"minLength": 1
+										},
+										"accessToken": {
+											"type": "string",
+											"minLength": 1
+										},
+										"newRefreshToken": {
+											"type": "string",
+											"minLength": 1
+										}
+									},
+									"required": [
+										"message",
+										"accessToken",
+										"newRefreshToken"
+									]
+								},
+								"examples": {
+									"example-1": {
+										"value": {
+											"message": "token successful",
+											"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwM2UzMzRlMmY0MjAyMGUzNGM2YWExOSIsInVzZXJuYW1lIjoibGFycnlzbWl0aCIsInByZWZlcnJlZEN1cnJlbmN5IjoidXNkIiwiZXhwIjoxNjE0Njk2ODk1LjgyMiwiaWF0IjoxNjE0NjkwODk1fQ.oHLJfy-cQM8zf3gegp8AwBj_P_CK_VhiPSaGoCPp3jw",
+											"newRefreshToken": "CxO2GMK0COoly45hrzcpxafGXkixVj5bhC6Ocrm8IUX3rAajwInsF7nG1wTDwDVlozax9L185exvBt1bjt6McaeUh8OXPqD79y8NyY3Hj7omG79VDj0MJS0rW6nqBJhoQ6tknEhQKby3JH0gORwcViqnyXsfauaXzE01CZMU2KbJ2H5vyrerEnFWwMgheEYg59UAESwxrOMYoCFSUgEgo1do9IMro22U4tlC1nWnNVILcubnC9ju8FfkbcaxN7ry"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"description": "",
+								"type": "object",
+								"properties": {
+									"refreshToken": {
+										"type": "string",
+										"minLength": 1
+									},
+									"username": {
+										"type": "string",
+										"minLength": 1
+									}
+								},
+								"required": [
+									"refreshToken",
+									"username"
+								]
+							},
+							"examples": {
+								"example-1": {
+									"value": {
+										"refreshToken": "O1T7hiB2DZ6n8pS10y0WQZzKOhUItbbIQgadWjRbZ3zbfouUu9gebUqQAm7Hd8jcBIxff1RDhU0o78qODNzyJeltM13U7bN9gd5O2Fj7VJHuCm0YBfSmZljAatOpqcIlINbtunWeoW9ULFTv6VsAUpYHmR6QQwtP6OXDagutpzeLaAzq5XA0KEcHsi9Ys3QKh2kLUyLQZPSTqfPcAY6ARceG3h3uMDvHbGMLSDj7Nq90pBX0AcRwAor6honI4DdF",
+										"username": "larrysmith"
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "get a new accestoken with your refreshtoken & username"
+			}
+		}
+	},
+	"components": {
+		"schemas": {},
+		"securitySchemes": {
+			"Bearer ": {
+				"name": "API Key",
+				"type": "apiKey",
+				"in": "header",
+				"description": ""
+			}
+		},
+		"responses": {
+			"geckocoin": {
+				"description": "Example response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "array",
+							"description": "",
+							"minItems": 1,
+							"uniqueItems": true,
+							"items": {
+								"type": "object",
+								"required": [
+									"id",
+									"symbol",
+									"currentPrice",
+									"name",
+									"image",
+									"lastUpdated"
+								],
+								"properties": {
+									"id": {
+										"type": "string",
+										"minLength": 1
+									},
+									"symbol": {
+										"type": "string",
+										"minLength": 1
+									},
+									"currentPrice": {
+										"type": "number"
+									},
+									"name": {
+										"type": "string",
+										"minLength": 1
+									},
+									"image": {
+										"type": "string",
+										"minLength": 1
+									},
+									"lastUpdated": {
+										"type": "string",
+										"minLength": 1
+									}
+								}
+							}
+						},
+						"examples": {
+							"geckoCoinresponse": {
+								"value": [
+									{
+										"id": "bitcoin",
+										"symbol": "btc",
+										"currentPrice": 4397722,
+										"name": "Bitcoin",
+										"image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+										"lastUpdated": "2021-03-02T12:17:25.977Z"
+									},
+									{
+										"id": "ethereum",
+										"symbol": "eth",
+										"currentPrice": 141263,
+										"name": "Ethereum",
+										"image": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+										"lastUpdated": "2021-03-02T12:15:30.197Z"
+									},
+									{
+										"id": "cardano",
+										"symbol": "ada",
+										"currentPrice": 110.85,
+										"name": "Cardano",
+										"image": "https://assets.coingecko.com/coins/images/975/large/cardano.png?1547034860",
+										"lastUpdated": "2021-03-02T12:15:28.128Z"
+									},
+									{
+										"id": "binancecoin",
+										"symbol": "bnb",
+										"currentPrice": 22525,
+										"name": "Binance Coin",
+										"image": "https://assets.coingecko.com/coins/images/825/large/binance-coin-logo.png?1547034615",
+										"lastUpdated": "2021-03-02T12:14:55.664Z"
+									},
+									{
+										"id": "tether",
+										"symbol": "usdt",
+										"currentPrice": 90.15,
+										"name": "Tether",
+										"image": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707",
+										"lastUpdated": "2021-03-02T12:11:53.737Z"
+									}
+								]
+							}
+						}
+					},
+					"application/xml": {
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					}
+				}
+			}
+		}
+	}
 }

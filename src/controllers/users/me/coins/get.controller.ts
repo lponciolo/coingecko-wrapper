@@ -10,7 +10,7 @@ const getCoinController = async function (
 ) {
   try {
     const serviceMessage = await getCoinService(req.user)
-    return res.status(200).json({ status: 200, message: serviceMessage })
+    return res.status(200).json({ status: 200, coins: serviceMessage })
   } catch (e) {
     return next(createError(500, e.message))
   }

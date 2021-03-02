@@ -5,7 +5,7 @@ import createError from 'http-errors'
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const serviceMessage = await coinsGetService(req.query)
+    const serviceMessage = await coinsGetService(req.body)
     return res.status(200).json(serviceMessage)
   } catch (e) {
     return next(createError(500, e.message))

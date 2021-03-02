@@ -4,15 +4,11 @@ import tokenRenewService from '../services/token.service'
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log('holis servicio')
     const payload = req.body
-    console.log(payload)
     const serviceObject = await tokenRenewService(
       payload.refreshToken,
       payload.username
     )
-    console.log('chau servicio')
-    console.log(serviceObject)
     res.status(200).send(serviceObject)
   } catch (err) {
     switch (err.message) {

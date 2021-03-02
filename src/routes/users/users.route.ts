@@ -3,7 +3,7 @@ const router = Router()
 import meRoute from './me/me.route'
 import auth from '../../middlewares/auth'
 import passport from 'passport'
-import signupController from '../../controllers/users/post.controller'
+import signupController from '../../controllers/signup.controller'
 
 router.use('/me', auth.required, meRoute)
 

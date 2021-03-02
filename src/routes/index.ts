@@ -8,6 +8,7 @@ import loginRoute from './login.route'
 import coinsRoute from './coins/coins.route'
 import tokenRoute from './token.route'
 import usersRoute from './users/users.route'
+import signupRoute from './signup.route'
 //
 
 // import more routes here
@@ -17,5 +18,6 @@ router.use('/coins', coinsRoute)
 router.use('/login', loginRoute)
 router.use('/users', usersRoute)
 router.use('/token', tokenRoute)
+router.use('/signup', signupRoute)
 
 export default router

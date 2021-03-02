@@ -1,9 +1,9 @@
 import coinWrapper from '../utils/coinGeckoWrapper'
 
-export default async (reqQuery: any) => {
-  const vsCurrency = reqQuery.vs_currency
-  const perPage = reqQuery.per_page
-  const page = reqQuery.page
+export default async (reqBody: any) => {
+  const vsCurrency = reqBody.vsCurrency
+  const perPage = reqBody.perPage
+  const page = reqBody.page
   const geckoResult: Object[] = await coinWrapper.getCoinsList(
     vsCurrency,
     perPage,
