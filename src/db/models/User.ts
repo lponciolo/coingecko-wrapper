@@ -29,7 +29,10 @@ export interface UserDocument extends iUser, Document {
   validPassword(password: string): boolean
   generateJWT(): string
   toAuthJSON(): AuthJson
-  coins: { push(coinId: Schema.Types.ObjectId): any }
+  coins: {
+    push(coinId: Schema.Types.ObjectId): any
+    pull(coinId: Schema.Types.ObjectId): any
+  }
 }
 
 const UserSchema: Schema<iUser> = new Schema(

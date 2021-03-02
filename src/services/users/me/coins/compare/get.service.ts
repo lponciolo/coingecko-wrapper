@@ -17,7 +17,7 @@ export default async (authUser: any, sortOption: boolean) => {
   let coinArray: Array<any> = []
   const user = await User.findById(authUser.id).populate('coins')
   if (user) {
-    const allUserCoins = user.coins as Array<any>
+    const allUserCoins = (user.coins as unknown) as Array<any>
     allUserCoins.map((coin) => {
       coinArray.push(coin.name)
     })
