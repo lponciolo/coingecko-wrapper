@@ -9,7 +9,10 @@ const getCoinController = async function (
   next: NextFunction
 ) {
   try {
-    const serviceMessage = await getCoinsComparsionService(req.user)
+    const serviceMessage = await getCoinsComparsionService(
+      req.user,
+      req.body.sortAscendent
+    )
     return res.status(200).json({ status: 200, coins: serviceMessage })
   } catch (e) {
     return next(createError(500, e.message))

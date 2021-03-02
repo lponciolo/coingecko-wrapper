@@ -1,7 +1,19 @@
 import { User } from '../../../../../db/models/User'
 import CoinGeckoWrapper from '../../../../utils/coinGeckoWrapper'
 
-export default async (authUser: any) => {
+const sortAscendent = (objArray: Array<any>) => {
+  objArray.sort(function (a: any, b: any) {
+    return a.actualPrice - b.actualPrice
+  })
+}
+
+const sotDescendent = (objArray: Array<any>) => {
+  objArray.sort(function (a: any, b: any) {
+    return b.actualPrice - a.actualPrice
+  })
+}
+
+export default async (authUser: any, sortOption: boolean) => {
   console.log(authUser)
   let coinArray: Array<any> = []
   const user = await User.findById(authUser.id).populate('coins')
@@ -39,6 +51,13 @@ export default async (authUser: any) => {
     })
   } else {
     throw new Error('user not found')
+  }
+  if (coinArray.length > 1 && !sortOption) {
+    sortAscendent(coinArray)
+  }
+
+  if (coinArray.length > 1 && sortOption) {
+    sotDescendent(coinArray)
   }
   return coinArray
 }
